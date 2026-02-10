@@ -12,12 +12,12 @@ describe('Wallet Transfer', () => {
     balances = { 1: 200, 2: 100 };
   });
 
-  // Fixed mock transaction helper with proper types
+
   const mockTransaction = async (fn: any) => {
     return await fn((table: string) => {
       if (table === 'wallets') {
         return {
-          // Handle both .where('user_id', value) and .where({ user_id: value })
+          
           where: (key: string | { user_id: number }, value?: number) => {
             const userId = typeof key === 'string' ? value! : key.user_id;
             
@@ -46,8 +46,8 @@ describe('Wallet Transfer', () => {
 
     const result = await transferFunds(1, 2, 50);
 
-    expect(result.fromBalance).toBe(150); // 200 - 50
-    expect(result.toBalance).toBe(150);   // 100 + 50
+    expect(result.fromBalance).toBe(150); 
+    expect(result.toBalance).toBe(150);
   });
 
   it('fails if sender wallet does not exist', async () => {
@@ -93,7 +93,7 @@ describe('Wallet Transfer', () => {
   });
 
   it('fails if insufficient funds', async () => {
-    balances = { 1: 20, 2: 100 }; // sender has less than transfer
+    balances = { 1: 20, 2: 100 }; 
     (db.transaction as jest.Mock).mockImplementation(mockTransaction);
 
     await expect(transferFunds(1, 2, 50)).rejects.toThrow('Insufficient funds');

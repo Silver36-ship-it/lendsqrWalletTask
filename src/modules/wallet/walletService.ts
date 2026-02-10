@@ -7,8 +7,7 @@ export async function fundWallet(userId: number, amount: number) {
 
   return database.transaction(async (trx) => {
     const wallet = await trx('wallets')
-      .where('user_id', userId)
-      .first();
+      .where('user_id', userId).first();
 
     if (!wallet) {
       throw new Error('Wallet not found');
@@ -31,11 +30,7 @@ export async function fundWallet(userId: number, amount: number) {
 }
 
 
-export async function transferFunds(
-  fromUserId: number,
-  toUserId: number,
-  amount: number
-) {
+export async function transferFunds( fromUserId: number,toUserId: number,amount: number) {
   if (amount <= 0) {
     throw new Error('Invalid amount');
   }

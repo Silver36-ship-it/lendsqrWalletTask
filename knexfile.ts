@@ -21,11 +21,13 @@ const config: { [key: string]: Knex.Config } = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'mysql2',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      host: mustGetEnv('DB_HOST'),
+      database: mustGetEnv('DB_USER'),
+      user:     mustGetEnv('DB_USER'),
+      password:  mustGetEnv('DB_NAME'), 
+
     },
     pool: {
       min: 2,
