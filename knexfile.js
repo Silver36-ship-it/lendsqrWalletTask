@@ -1,9 +1,6 @@
-import type { Knex } from "knex";
-import * as dotenv from 'dotenv';
+require('dotenv').config();
 
-dotenv.config();
-
-export const knexConfig: { [key: string]: Knex.Config } = {
+const config = {
   development: {
     client: 'mysql2',
     connection: {
@@ -34,8 +31,10 @@ export const knexConfig: { [key: string]: Knex.Config } = {
       max: 10
     },
     migrations: {
-      directory: './migrations',
+      directory: './dist/migrations',
       extension: 'js'
     }
   }
 };
+
+module.exports = config;
