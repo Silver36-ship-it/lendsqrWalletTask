@@ -21,12 +21,14 @@ const config: { [key: string]: Knex.Config } = {
   },
 
   production: {
-    client: 'mysql2',
+    client: 'pq',
     connection: {
-      host: mustGetEnv('DB_HOST'),
-      database: mustGetEnv('DB_USER'),
-      user:     mustGetEnv('DB_USER'),
-      password:  mustGetEnv('DB_NAME'), 
+      host: process.env.DATABASE_HOST || 'localhost',
+      port: Number(process.env.DATABASE_PORT) || 5432,
+      database: process.env.DATABASE_NAME || 'lendsqr_wallet',
+      user:     process.env.DATABASE_USER || 'postgres',
+      password:  process.env.DATABASE_PASSWORD ||'', 
+      ssl: { rejectUnauthorized: false } 
 
     },
     pool: {
